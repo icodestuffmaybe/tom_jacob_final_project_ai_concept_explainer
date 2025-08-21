@@ -5,9 +5,9 @@ from typing import Optional
 try:
     from dotenv import load_dotenv
     load_dotenv()  # This looks for .env in current directory
-    print("📄 Loaded .env file")
+    print("Loaded .env file")
 except ImportError:
-    print("⚠️ python-dotenv not installed, reading environment variables directly")
+    print("python-dotenv not installed, reading environment variables directly")
 
 class Settings:
     PROJECT_NAME: str = "AI Concept Explainer"
@@ -27,7 +27,7 @@ settings = Settings()
 
 # Debug: Print API key status (first 10 chars only for security)
 if settings.GEMINI_API_KEY:
-    print(f"✅ Gemini API key loaded: {settings.GEMINI_API_KEY[:10]}...")
+    print(f"Gemini API key loaded: {settings.GEMINI_API_KEY[:10]}...")
 else:
-    print("⚠️ Gemini API key not found in environment")
+    print("Gemini API key not found in environment")
     print("   Make sure .env file exists in backend directory")
