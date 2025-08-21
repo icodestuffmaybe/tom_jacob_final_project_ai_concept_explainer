@@ -8,6 +8,9 @@
 # TA guide
 TA_guide.md
 
+# claude
+.claude/
+
 # Python
 __pycache__/
 *.py[cod]
