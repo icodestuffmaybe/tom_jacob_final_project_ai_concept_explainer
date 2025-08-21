@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+        Chosen Palette: Warm & Professional Neutrals. This palette uses a warm off-white background (#f5f3f1) with stone colors for content cards (#ffffff) and text (#44403c). A subtle accent color is used for highlights and interactive elements.
+
+        Application Structure Plan: A single-page application with a sticky side navigation for quick access to thematic sections (Setup, Overview, Recipe, Modules, etc.). This non-linear structure is chosen for usability, allowing students to review specific topics without linear scrolling. The interactive module breakdown uses a tabbed component to isolate concepts. This design prioritizes self-paced learning and quick reference.
+
+        Visualization & Content Choices:
+        - Course Structure (Overview Section): Goal: Inform -> Viz: Donut Chart (Chart.js/Canvas) -> Justification: A donut chart is the most effective way to show a simple part-to-whole relationship, clearly communicating the 50/50 split between the live session and project work.
+        - Module Focus (Module Breakdown Section): Goal: Compare -> Viz: Bar Chart (Chart.js/Canvas) -> Justification: A bar chart is ideal for comparing the nature of the six modules, visually distinguishing between theory-focused and hands-on coding sessions.
+
+        CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <title>AI Explorers: Interactive RAG Course Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f3f1;
+            color: #44403c;
+        }
+        .nav-link.active {
+            background-color: #a8a29e;
+            color: #1c1917;
+            font-weight: 600;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        .module-tab.active {
+            background-color: #d6d3d1;
+            border-color: #a8a29e;
+        }
+    </style>
+</head>
+<body class="bg-stone-100">
+
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 p-4 sm:p-6 lg:p-8">
+        
+        <aside class="lg:w-1/4 lg:sticky lg:top-8 self-start">
+            <div class="bg-white/80 backdrop-blur-md p-4 rounded-xl shadow-md">
+                <h2 class="text-lg font-bold text-stone-700 mb-4">Course Navigation</h2>
+                <nav class="flex flex-row lg:flex-col gap-2 flex-wrap">
+                    <a href="#setup" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Setup & Prerequisites</a>
+                    <a href="#overview" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Overview</a>
+                    <a href="#recipe" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">The RAG Recipe</a>
+                    <a href="#modules" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Module Breakdown</a>
+                    <a href="#capstone" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Capstone Project</a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="w-full lg:w-3/4">
+            <header class="bg-white p-8 rounded-xl shadow-xl mb-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-stone-800">AI Explorers: RAG</h1>
+                <p class="text-xl md:text-2xl text-stone-600 mt-2">Interactive Course Notes</p>
+            </header>
+
+            <section id="setup" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Course Setup & Prerequisites</h2>
+                    <p class="text-stone-600 mb-6">To ensure a smooth experience in both the live session and the capstone project, please complete the following setup steps beforehand. This will allow us to focus on building and learning during the class.</p>
+                    <div class="space-y-6">
+                        <div class="bg-stone-50 p-6 rounded-lg border-l-4 border-stone-400">
+                            <h3 class="text-xl font-semibold text-stone-800 mb-3">1. Account Setup (Required for All)</h3>
+                            <p class="text-stone-600 mb-4">We will use two main services for our AI models and database. Please create a free account for each:</p>
+                            <ul class="list-disc list-inside space-y-2 text-stone-600">
+                                <li><strong>Google AI Studio Account:</strong> Go to <a href="https://aistudio.google.com/" target="_blank" class="text-stone-800 font-semibold underline">aistudio.google.com</a> to get your Gemini API Key.</li>
+                                <li><strong>Pinecone Account:</strong> Sign up for the free "Starter" plan at <a href="https://app.pinecone.io/" target="_blank" class="text-stone-800 font-semibold underline">pinecone.io</a> to get your API key.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-stone-50 p-6 rounded-lg border-l-4 border-stone-400">
+                            <h3 class="text-xl font-semibold text-stone-800 mb-3">2. In-Class Challenge Environment</h3>
+                            <p class="text-stone-600">The in-class challenge is a Python notebook designed to run entirely in your web browser using Google Colab. There is no local software installation required for the live session.</p>
+                             <ul class="list-disc list-inside space-y-2 text-stone-600 mt-4">
+                                <li><strong>Required:</strong> A Google Account to access and run the Colab notebook.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-stone-50 p-6 rounded-lg border-l-4 border-stone-400">
+                            <h3 class="text-xl font-semibold text-stone-800 mb-3">3. Capstone Project Environment (Local Setup)</h3>
+                            <p class="text-stone-600">The capstone project is designed to be developed on your own computer. This mimics a real-world development workflow and gives you a project you can run and share from your machine.</p>
+                            <ul class="list-disc list-inside space-y-2 text-stone-600 mt-4">
+                                <li><strong>Code Editor:</strong> VS Code or Cursor is highly recommended.</li>
+                                <li><strong>Python & Conda:</strong> A working installation of Python (version 3.9+) and Conda for managing project dependencies is required.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="overview" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Course Overview</h2>
+                    <p class="text-stone-600 mb-8">This course provides a comprehensive, hands-on journey into Retrieval-Augmented Generation (RAG), the technique used to make AI more accurate and trustworthy. You will learn the complete pipeline, from theory to building a real-world application.</p>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-stone-50 p-4 rounded-lg">
+                                <p class="text-3xl font-bold text-stone-800">4</p>
+                                <p class="text-sm text-stone-600">Total Hours</p>
+                            </div>
+                            <div class="bg-stone-50 p-4 rounded-lg">
+                                <p class="text-3xl font-bold text-stone-800">6</p>
+                                <p class="text-sm text-stone-600">Core Modules</p>
+                            </div>
+                            <div class="bg-stone-50 p-4 rounded-lg">
+                                <p class="text-3xl font-bold text-stone-800">3</p>
+                                <p class="text-sm text-stone-600">Key Technologies</p>
+                            </div>
+                            <div class="bg-stone-50 p-4 rounded-lg">
+                                <p class="text-3xl font-bold text-stone-800">1</p>
+                                <p class="text-sm text-stone-600">Portfolio Project</p>
+                            </div>
+                        </div>
+                        <div>
+                             <h3 class="text-xl font-bold text-stone-700 mb-2 text-center">Course Structure</h3>
+                            <div class="chart-container">
+                                <canvas id="courseStructureChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="recipe" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">The RAG Recipe</h2>
+                    <p class="text-stone-600 mb-6">The RAG process is a six-step pipeline divided into two phases. First, we prepare our data in the one-time **Ingestion** phase. Then, the **Generation** phase runs in real-time to answer user questions.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-stone-50 p-6 rounded-lg border-l-4 border-stone-400">
+                            <h3 class="text-xl font-semibold text-stone-800 mb-3">Phase 1: Ingestion</h3>
+                            <ul class="space-y-2 text-stone-600">
+                                <li><strong>1. Load:</strong> Start with a source document.</li>
+                                <li><strong>2. Split:</strong> Break it into smaller text chunks.</li>
+                                <li><strong>3. Embed:</strong> Convert each chunk into a vector.</li>
+                                <li><strong>4. Store:</strong> Save vectors in a Vector Database.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-stone-50 p-6 rounded-lg border-l-4 border-stone-400">
+                            <h3 class="text-xl font-semibold text-stone-800 mb-3">Phase 2: Generation</h3>
+                            <ul class="space-y-2 text-stone-600">
+                                <li><strong>5. Retrieve:</strong> Find relevant chunks for a query.</li>
+                                <li><strong>6. Generate:</strong> Use chunks to create a sourced answer.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="modules" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Module Breakdown</h2>
+                    <p class="text-stone-600 mb-6">The course guides you from theory to a hands-on project. Click a module for details.</p>
+                    <div class="flex flex-wrap gap-2 border-b-2 border-stone-200 mb-4">
+                        <button class="technique-tab p-3 font-semibold border-b-4 border-transparent active" data-target="mod-1">Mod 1</button>
+                        <button class="technique-tab p-3 font-semibold border-b-4 border-transparent" data-target="mod-2">Mod 2</button>
+                        <button class="technique-tab p-3 font-semibold border-b-4 border-transparent" data-target="mod-3">Mod 3</button>
+                        <button class="technique-tab p-3 font-semibold border-b-4 border-transparent" data-target="mod-4">Mod 4</button>
+                        <button class="technique-tab p-3 font-semibold border-b-4 border-transparent" data-target="mod-5">Mod 5</button>
+                        <button class="technique-tab p-3 font-semibold border-b-4 border-transparent" data-target="mod-6">Mod 6</button>
+                    </div>
+                    <div id="module-content" class="mt-6 min-h-[150px]"></div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-bold text-stone-700 mb-4 text-center">Module Focus: Theory vs. Hands-On</h3>
+                        <div class="chart-container h-64 md:h-72">
+                            <canvas id="moduleFocusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="capstone" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Capstone Project: The Study Buddy AI</h2>
+                    <p class="text-stone-600 mb-6">Apply your skills to build a portfolio-ready application. The Study Buddy AI is a web app that allows you to upload your personal documents and have an intelligent conversation with them.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-stone-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg text-stone-800 mb-2">Key Features</h4>
+                            <ul class="list-disc list-inside text-stone-600 space-y-1">
+                                <li>Multi-file Upload</li>
+                                <li>Backend Processing</li>
+                                <li>Interactive Chat Interface</li>
+                                <li>100% Private & Secure</li>
+                            </ul>
+                        </div>
+                        <div class="bg-stone-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg text-stone-800 mb-2">Technology Stack</h4>
+                            <ul class="list-disc list-inside text-stone-600 space-y-1">
+                                <li>Python (Streamlit/FastAPI)</li>
+                                <li>Google Gemini</li>
+                                <li>Pinecone</li>
+                                <li>SQLite</li>
+                            </ul>
+                        </div>
+                        <div class="bg-stone-50 p-6 rounded-lg">
+                            <h4 class="font-bold text-lg text-stone-800 mb-2">Deliverables</h4>
+                            <ul class="list-disc list-inside text-stone-600 space-y-1">
+                                <li>GitHub Repository</li>
+                                <li>Demo Video</li>
+                                <li>Detailed README.md</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+    const moduleData = {
+        1: {
+            title: "Module 1: The Big Picture",
+            content: "This foundational module explains what Large Language Models (LLMs) are and details their core limitations, such as the 'Knowledge Cutoff' and 'Hallucinations'. It introduces Retrieval-Augmented Generation (RAG) as the solution, using the analogy of an 'open-book test' to ground the AI's responses in factual, external data."
+        },
+        2: {
+            title: "Module 2: The RAG Recipe",
+            content: "This module breaks down the entire RAG process into two phases (Ingestion and Generation) and six concrete steps. It covers the core concepts of vector embeddings—turning words into numerical representations of meaning—and the role of a vector database as a searchable 'meaning map'."
+        },
+        3: {
+            title: "Module 3: Hands-On (Load, Split, Embed)",
+            content: "The first hands-on module where you will write code. You will use LangChain to load a webpage, split it into manageable chunks, and then use the Google Gemini embedding model to convert a sample chunk into its first vector. This covers the initial data preparation steps."
+        },
+        4: {
+            title: "Module 4: Hands-On (Store)",
+            content: "In this module, you'll complete the data ingestion phase. You will learn how to initialize a Pinecone index, a cloud-based vector database. You will then write code to loop through all your text chunks, embed them, and upload (upsert) them to Pinecone, creating a permanent, searchable knowledge base."
+        },
+        5: {
+            title: "Module 5: Hands-On (Full Pipeline)",
+            content: "This is the final hands-on module where you build the real-time generation pipeline. You will write two key functions: a 'retriever' to search Pinecone for relevant context, and a 'generator' to create a final answer using that context. You'll combine them into a single function to ask questions and get answers."
+        },
+        6: {
+            title: "Module 6: Wrap-up & Project Intro",
+            content: "This concluding module recaps the entire RAG pipeline you've built. It then introduces the capstone project, the 'Study Buddy AI,' explaining the goals, the technology stack, and the final deliverables required to build a complete, portfolio-ready application."
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const palette = {
+            primary: '#a8a29e', // stone-400
+            secondary: '#d6d3d1', // stone-300
+            accent: '#78716c', // stone-500
+            text: '#44403c' // stone-700
+        };
+
+        const tooltipConfig = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) { return label.join(' '); }
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        const courseStructureCtx = document.getElementById('courseStructureChart').getContext('2d');
+        new Chart(courseStructureCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Live Session', 'Capstone Project'],
+                datasets: [{
+                    label: 'Course Hours',
+                    data: [2, 2],
+                    backgroundColor: [palette.primary, palette.accent],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: palette.text, font: { size: 14 }}},
+                    tooltip: tooltipConfig.plugins.tooltip
+                }
+            }
+        });
+        
+        const moduleFocusCtx = document.getElementById('moduleFocusChart').getContext('2d');
+        new Chart(moduleFocusCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Mod 1', 'Mod 2', 'Mod 3', 'Mod 4', 'Mod 5', 'Mod 6'],
+                datasets: [{
+                    label: 'Focus',
+                    data: [1, 1, 2, 2, 2, 1], // 1 for Theory, 2 for Hands-On
+                    backgroundColor: (context) => context.raw === 1 ? palette.secondary : palette.primary,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function(value, index, values) {
+                                return value === 1 ? 'Theory' : 'Hands-On';
+                            },
+                            color: palette.text,
+                            stepSize: 1
+                        },
+                         grid: { display: false }
+                    },
+                    x: {
+                        ticks: { color: palette.text },
+                        grid: { color: 'rgba(0,0,0,0.05)' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        ...tooltipConfig.plugins.tooltip,
+                        callbacks: {
+                            ...tooltipConfig.plugins.tooltip.callbacks,
+                             label: function(context) {
+                                return context.raw === 1 ? 'Focus: Theory' : 'Focus: Hands-On Coding';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const moduleTabs = document.querySelectorAll('.technique-tab');
+        const moduleContentDiv = document.getElementById('module-content');
+
+        function updateModuleContent(moduleNumber) {
+            const data = moduleData[moduleNumber];
+            moduleContentDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-stone-800 mb-2">${data.title}</h3>
+                <p class="text-stone-600 leading-relaxed">${data.content}</p>
+            `;
+            moduleTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.target === `mod-${moduleNumber}`);
+            });
+        }
+
+        moduleTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                updateModuleContent(tab.dataset.target.split('-')[1]);
+            });
+        });
+
+        updateModuleContent('1');
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('main section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: "-40% 0px -60% 0px" });
+
+        sections.forEach(section => observer.observe(section));
+    });
+</script>
+</body>
+</html>

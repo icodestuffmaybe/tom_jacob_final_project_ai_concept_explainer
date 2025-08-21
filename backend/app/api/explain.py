@@ -74,6 +74,51 @@ async def process_student_explanation(
     current_user: Student = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
+    # TODO: EXERCISE 3A - Implement Student Evaluation Agent (AI Agents Session)
+    # INSTRUCTION: Create an AI agent that evaluates student explanations using ReAct framework
+    # 
+    # STEPS TO IMPLEMENT:
+    # 1. Retrieve the learning session from database
+    # 2. Create an evaluation agent that uses ReAct pattern (Reason → Act → Observe)
+    # 3. Compare student explanation with original AI explanation
+    # 4. Identify knowledge gaps and provide feedback
+    # 5. Parse the agent's response into structured format
+    # 6. Return evaluation results
+    # 
+    # REACT AGENT PATTERN (Session 3):
+    # - Thought: Agent reasons about the comparison task
+    # - Action: Agent analyzes gaps and generates feedback
+    # - Observation: Agent reviews its analysis for completeness
+    # 
+    # AGENT BEHAVIOR REQUIREMENTS:
+    # - Act as an educational evaluator
+    # - Use step-by-step reasoning
+    # - Provide constructive feedback
+    # - Identify specific knowledge gaps
+    # - Suggest improvements
+    # 
+    # EXAMPLE AGENT PROMPT STRUCTURE:
+    # """
+    # You are an educational evaluation agent. Your task is to assess student understanding.
+    # 
+    # THOUGHT: I need to compare the student's explanation with the correct explanation.
+    # ACTION: I will analyze gaps, misconceptions, and areas for improvement.
+    # OBSERVATION: I will ensure my feedback is constructive and specific.
+    # 
+    # Original explanation: {session.explanation}
+    # Student explanation: {request.explanation}
+    # 
+    # Please provide:
+    # GAPS: [specific missing concepts]
+    # CLARIFICATIONS: [areas needing clarification]  
+    # SIMPLIFIED: [simplified explanation to help]
+    # """
+    
+    # TODO: Remove this assertion once you implement the function
+    assert False, "❌ EXERCISE 3A NOT IMPLEMENTED: Please implement process_student_explanation() agent in explain.py"
+    
+    # TODO: Implement your solution here
+    
     session = db.query(LearningSession).filter(
         LearningSession.id == request.session_id,
         LearningSession.student_id == current_user.id
@@ -92,46 +137,21 @@ async def process_student_explanation(
                 "simplified_explanation": "Feature unavailable without API configuration"
             }
             
+        # TODO: Create your ReAct agent prompt here using Session 3 techniques
         prompt = f"""
-        Original explanation: {session.explanation}
-        
-        Student's explanation: {request.explanation}
-        
-        Compare these explanations and identify:
-        1. What gaps exist in the student's understanding?
-        2. What clarifications are needed?
-        3. Provide a simplified explanation to help the student understand better.
-        
-        Format your response as:
-        GAPS: [list key missing concepts]
-        CLARIFICATIONS: [explain what needs to be clarified]
-        SIMPLIFIED: [provide simpler explanation]
+        # Your evaluation agent prompt goes here
+        # Remember to:
+        # - Use ReAct pattern (Thought → Action → Observation)
+        # - Act as educational evaluator
+        # - Compare explanations systematically
+        # - Provide structured output format
+        # - Be constructive and helpful
         """
         
-        response = explanation_service.model.generate_content(prompt)
-        response_text = response.text
-        
-        gaps = []
-        clarifications = ""
-        simplified = ""
-        
-        sections = response_text.split("CLARIFICATIONS:")
-        if len(sections) > 1:
-            gaps_section = sections[0].replace("GAPS:", "").strip()
-            gaps = [gap.strip() for gap in gaps_section.split("-") if gap.strip()]
-            
-            remaining = sections[1].split("SIMPLIFIED:")
-            if len(remaining) > 1:
-                clarifications = remaining[0].strip()
-                simplified = remaining[1].strip()
-            else:
-                clarifications = remaining[0].strip()
-        
-        return {
-            "gaps_identified": gaps,
-            "clarifications": clarifications,
-            "simplified_explanation": simplified
-        }
+        # TODO: Generate content using the agent
+        # TODO: Parse the response into gaps, clarifications, simplified
+        # TODO: Return structured evaluation results
+        pass
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing explanation: {str(e)}")

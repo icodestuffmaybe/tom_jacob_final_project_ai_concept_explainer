@@ -1,80 +1,57 @@
-# AI Concept Explainer
+# AI Concept Explainer - Student Capstone Exercise
 
-A proof-of-concept educational application that helps grade 7-12 students understand complex concepts through AI-powered explanations with source verification, interactive quizzes, and visual learning aids.
+A 20-hour capstone project for grade 7-12 students to implement core AI components in an educational application. Students will apply prompt engineering, RAG (Retrieval-Augmented Generation), and AI agents concepts from their 3-session AI course.
 
-## 🎯 Features
+## Project Overview
 
-- **🌊 Real-Time Streaming**: Watch AI thinking process step-by-step in real-time
-- **💬 ChatGPT-Style Interface**: Natural conversation flow with intelligent context awareness
-- **RAG-Based Explanations**: Source-verified AI explanations using Wikipedia and educational websites
+This is a **complete, working educational platform** where students implement the **core AI intelligence** that powers the system. The database, API endpoints, frontend, and infrastructure are ready - students make it smart by implementing the AI components they learned about in class.
+
+### What Students Will Implement
+
+| Exercise | Session Topic | Component | Hours | Learning Focus |
+|----------|---------------|-----------|-------|----------------|
+| 1A | Prompt Engineering | Explanation Generation | 4 | Feynman Technique prompts |
+| 1B | Prompt Engineering | Quiz Generation | 2 | JSON format prompts |
+| 1C | Prompt Engineering | SVG Flashcards | 2 | Creative design prompts |
+| 2A | RAG | Keyword Extraction | 2 | Query processing |
+| 2B | RAG | Wikipedia Search | 4 | Content retrieval |
+| 2C | RAG | Source Integration | 2 | Information synthesis |
+| 3A | AI Agents | Student Evaluation | 2 | ReAct framework |
+| 3B | AI Agents | Quiz Assessment | 2 | Performance analysis |
+
+**Total: 20 hours** covering all course concepts with hands-on implementation.
+
+## Features (When Complete)
+
+- **RAG-Based Explanations**: Source-verified AI explanations using Wikipedia
 - **Feynman Technique**: Step-by-step concept breakdown using simple language
-- **Visual Learning**: AI-generated SVG flashcards with zen-inspired design
+- **Visual Learning**: AI-generated SVG flashcards with educational design
 - **Adaptive Quizzes**: Auto-generated questions with difficulty adjustment
 - **Progress Tracking**: Mastery tracking with 85% accuracy threshold
-- **Related Topics**: Automatic discovery of prerequisite and next concepts
-- **🎨 Smooth Animations**: Enhanced UX with loading indicators and visual feedback
+- **Agent-Based Assessment**: AI agents that evaluate student understanding
 
-## 🏗️ Architecture
-
-### Technology Stack
+## Technology Stack
 
 **Backend:**
 - FastAPI (Python) - REST API
 - SQLAlchemy - ORM for SQLite
-- Google Gemini 2.5 - AI explanations and SVG generation
-- Wikipedia API - Primary source verification
+- Google Gemini 2.5 - AI explanations and generation
+- Wikipedia API - Source verification
 - JWT Authentication
-
-**Frontend:**
-- React 18 + TypeScript
-- Vite - Build tool
-- Tailwind CSS - Styling
-- Axios - API client
 
 **Database:**
 - SQLite - Local database
 - Models: Student, Concept, LearningSession, Quiz, Progress
 
-## 🚀 Quick Start
+## Quick Start for Students
 
 ### Prerequisites
 
 - Python 3.8+
-- Node.js 16+
 - Google Gemini API key
 
-### Super Quick Start (Recommended for Prototype)
+### Setup Instructions
 
-#### 🌊 **Streaming Mode (Recommended)**
-1. **Run the streaming chat interface:**
-   ```cmd
-   start_streaming.bat
-   ```
-   Features real-time AI thinking process visualization!
-
-2. **Open your browser to:** http://localhost:5173
-
-3. **Watch the AI work in real-time** as it processes your questions!
-
-#### 🚀 **Simple Mode**
-1. **Run basic version:**
-   ```cmd
-   start_simple.bat
-   ```
-   Clean interface without streaming effects.
-
-**No registration required for either mode!**
-
-### Backend Setup
-
-#### Option 1: Quick Start (Windows)
-1. **Run the startup script:**
-   ```cmd
-   start_backend.bat
-   ```
-   This will automatically create the virtual environment, install dependencies, and start the server.
-
-#### Option 2: Manual Setup
 1. **Navigate to backend directory:**
    ```bash
    cd backend
@@ -94,57 +71,48 @@ A proof-of-concept educational application that helps grade 7-12 students unders
 
 4. **Configure environment:**
    ```bash
-   copy .env.example .env  # Windows
-   # cp .env.example .env  # macOS/Linux
-   # Edit .env and add your GEMINI_API_KEY
+   # Create .env file in backend directory
+   echo GEMINI_API_KEY=your_api_key_here > .env
    ```
 
-5. **Run the backend:**
+5. **Test your setup:**
    ```bash
-   python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+   python test_setup.py
    ```
 
-   The API will be available at: http://localhost:8000
+### Running Tests
 
-### Frontend Setup
+Test individual exercises as you implement them:
 
-#### Option 1: Quick Start (Windows)
-1. **Run the startup script:**
-   ```cmd
-   start_frontend.bat
-   ```
-   This will automatically install dependencies and start the development server.
+```bash
+# Prompt Engineering (Session 1)
+python test_exercise_1a_explanation.py
+python test_exercise_1b_quiz.py
 
-#### Option 2: Manual Setup
-1. **Navigate to frontend directory:**
-   ```bash
-   cd frontend
-   ```
+# RAG System (Session 2)  
+python test_exercise_2a_keywords.py
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+# AI Agents (Session 3)
+python test_exercise_3a_agent.py
+```
 
-3. **Run the development server:**
-   ```bash
-   npm run dev
-   ```
+### Running the Backend
 
-   The app will be available at: http://localhost:5173
+```bash
+python -m uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
 
-## 🔧 Configuration
+The API will be available at: http://localhost:8000
+
+## Configuration
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` and configure:
+Create a `.env` file in the backend directory:
 
 ```env
 # Required: Get from https://makersuite.google.com/app/apikey
 GEMINI_API_KEY=your_gemini_api_key_here
-
-# Optional: For enhanced source verification
-SEARCH_API_KEY=your_search_api_key_here
 
 # Database
 DATABASE_URL=sqlite:///./app.db
@@ -153,78 +121,51 @@ DATABASE_URL=sqlite:///./app.db
 JWT_SECRET_KEY=your-secure-secret-key
 ```
 
-### API Keys Setup
+### API Key Setup
 
 1. **Gemini API Key** (Required):
    - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
    - Create a new API key
    - Add to your `.env` file
 
-2. **Search API Key** (Optional):
-   - For enhanced source verification
-   - Supports SerpAPI, Brave Search API, etc.
+## Student Implementation Guide
 
-## 📖 Usage
+### File Structure for Exercises
 
-### Basic Workflow
-
-1. **Register/Login**: Create a student account
-2. **Ask Questions**: Type any educational query
-3. **Review Explanation**: Read AI-generated explanation with sources
-4. **View Visual Aid**: Check the generated SVG flashcard
-5. **Take Quiz**: Test understanding with adaptive questions
-6. **Track Progress**: Monitor mastery levels and learning stats
-
-### Example Queries
-
-- "What is photosynthesis and why is it important?"
-- "Explain the Pythagorean theorem with a real-world example"
-- "How does democracy work in modern societies?"
-- "What is climate change and what causes it?"
-
-## 🧪 Development
-
-### Backend Development
-
-```bash
-cd backend
-
-# Run with auto-reload
-uvicorn app.main:app --reload
-
-# Run tests
-pytest
-
-# Check code style
-black app/
-flake8 app/
+```
+backend/app/
+├── services/
+│   ├── explanation_service.py  # Exercises 1A, 2A, 2B, 2C
+│   ├── quiz_service.py         # Exercises 1B, 3B
+│   └── svg_generator.py        # Exercise 1C
+├── api/
+│   └── explain.py              # Exercise 3A
+└── ...
 ```
 
-### Frontend Development
+### Implementation Process
 
-```bash
-cd frontend
+1. **Read the detailed instructions** in `student_guide.md`
+2. **Look for TODO comments** in the code files - they contain step-by-step instructions
+3. **Remove the assertion** when you start implementing each function
+4. **Test frequently** using the provided test scripts
+5. **Ask for help** from TAs when needed (see `TA_guide.md`)
 
-# Development server
-npm run dev
+### Success Criteria
 
-# Build for production
-npm run build
+Students succeed when:
+- All test scripts pass without assertion errors
+- API endpoints return intelligent, relevant responses
+- Full system integration works end-to-end
+- They can explain their implementation using course concepts
 
-# Lint code
-npm run lint
-
-# Type checking
-npx tsc --noEmit
-```
-
-### API Documentation
+## API Documentation
 
 Once the backend is running, visit:
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
 
-## 📊 Database Schema
+## Database Schema
 
 ### Core Models
 
@@ -234,149 +175,98 @@ Once the backend is running, visit:
 - **Quiz**: Generated quizzes with questions and student responses
 - **Progress**: Mastery tracking per student per concept
 
-## 🎨 Design Philosophy
-
-### Educational Approach
-- **Feynman Technique**: Explains complex concepts in simple terms
-- **Source Verification**: Grounds explanations in credible sources
-- **Progressive Learning**: Builds knowledge systematically
-- **Visual Reinforcement**: SVG flashcards enhance understanding
-
-### UI/UX Design
-- **Matrix-Inspired**: Dark theme with green accents
-- **Zen Minimalism**: Clean, focused interface
-- **Mobile-Responsive**: Works on all device sizes
-- **Accessibility**: High contrast and readable fonts
-
-## 📋 Project Structure
+## Project Structure
 
 ```
-ai-concept-explainer/
+ai-concept-explainer-exercise/
 ├── backend/
 │   ├── app/
-│   │   ├── api/           # API routes
-│   │   ├── core/          # Configuration
-│   │   ├── database/      # Database setup
-│   │   ├── models/        # SQLAlchemy models
-│   │   ├── services/      # Business logic
-│   │   └── main.py        # FastAPI app
+│   │   ├── api/           # API routes (some student implementation)
+│   │   ├── core/          # Configuration (complete)
+│   │   ├── database/      # Database setup (complete)
+│   │   ├── models/        # SQLAlchemy models (complete)
+│   │   ├── services/      # Business logic (STUDENT IMPLEMENTS)
+│   │   └── main.py        # FastAPI app (complete)
 │   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── components/    # React components
-│   │   ├── hooks/         # Custom hooks
-│   │   ├── services/      # API client
-│   │   ├── types/         # TypeScript types
-│   │   └── main.tsx       # Entry point
-│   └── package.json
-├── requirements.md        # Detailed requirements
-├── .env.example          # Environment template
-└── README.md
+├── test_exercise_*.py     # Test scripts for each exercise
+├── student_guide.md       # Detailed implementation guide
+├── TA_guide.md           # Solutions and help for TAs
+├── session*_course_notes.html  # Course reference materials
+└── README.md             # This file
 ```
 
-## 🔍 Testing
-
-### Sample Test Queries
-
-Test the system with these educational queries:
-- Science: "Explain photosynthesis", "What is DNA?"
-- Math: "Pythagorean theorem", "What are prime numbers?"
-- History: "Causes of World War I", "How democracy works"
-- Physics: "Newton's laws of motion", "What is gravity?"
-
-### Performance Targets
-
-- Explanation generation: < 5 seconds
-- SVG flashcard generation: < 3 seconds
-- Quiz creation: < 3 seconds
-- Runs on 8GB RAM laptop
-- Handles 1000+ learning sessions
-
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
-1. **"Gemini API not configured"**
+1. **"Assertion Error" when running tests**
+   - This is expected! Remove the `assert False` line and implement the function
+
+2. **"Gemini API not configured"**
    - Ensure `GEMINI_API_KEY` is set in `.env`
    - Verify API key is valid
 
-2. **Database errors**
-   - Delete `app.db` to reset database
-   - Check SQLite permissions
+3. **JSON parsing errors in quiz generation**
+   - Check your prompt format specification
+   - Ensure AI returns pure JSON without markdown
 
-3. **CORS errors**
-   - Verify frontend runs on port 5173
-   - Check backend CORS configuration
+4. **Wikipedia search returns empty results**
+   - Check URL encoding for special characters
+   - Implement proper error handling
 
-4. **Import errors**
-   - Ensure virtual environment is activated
-   - Install requirements: `pip install -r requirements.txt`
+### Getting Help
 
-### Development Tips
+1. **Read the TODO comments** in the code files
+2. **Check `student_guide.md`** for detailed instructions
+3. **Ask TAs for help** - they have complete solutions in `TA_guide.md`
+4. **Run test scripts** to see specific error messages
 
-- Use browser dev tools to monitor API calls
-- Check backend logs for detailed error messages
-- Ensure both frontend and backend are running
-- Test with simple queries first
+## Educational Goals
 
-## 📚 Educational Impact
+This capstone project teaches students to:
 
-### Learning Outcomes
+- **Apply prompt engineering techniques** in real applications
+- **Build RAG systems** that retrieve and use external knowledge
+- **Implement AI agents** that can reason and provide feedback
+- **Work with professional codebases** and APIs
+- **Handle errors and edge cases** in AI applications
+- **Test and validate** AI system components
 
-- **Concept Mastery**: 85% accuracy threshold ensures deep understanding
-- **Source Literacy**: Students learn to verify information
-- **Visual Learning**: SVG flashcards reinforce key concepts
-- **Self-Assessment**: Quizzes provide immediate feedback
-- **Progress Awareness**: Dashboard shows learning journey
+## Course Concept Mapping
 
-### Feynman Technique Implementation
+### Session 1: Prompt Engineering
+- **Persona prompting**: "You are an expert teacher..."
+- **Few-shot learning**: Provide examples in prompts
+- **Format specification**: Exact output structure requirements
+- **Chain of thought**: "Let's think step by step"
 
-1. **Simple Explanation**: AI breaks down complex concepts
-2. **Identify Gaps**: Quiz results highlight knowledge gaps
-3. **Simplify Further**: Adaptive explanations for struggling areas
-4. **Use Analogies**: Real-world examples enhance understanding
+### Session 2: RAG (Retrieval-Augmented Generation)
+- **Query processing**: Extract meaningful search terms
+- **Content retrieval**: Get relevant external information
+- **Information synthesis**: Combine sources with AI knowledge
+- **Quality control**: Validate and filter retrieved content
 
-## 🛠️ Future Enhancements
+### Session 3: AI Agents
+- **ReAct framework**: Reason → Act → Observe
+- **Agent roles**: Specialized AI with specific responsibilities
+- **Tool use**: Agents that can call functions and APIs
+- **Evaluation patterns**: Agents that assess and provide feedback
 
-### Planned Features (Post-POC)
+## License
 
-- Voice input/output support
-- Collaborative learning features
-- Advanced analytics dashboard
-- Multi-language support
-- Mobile app version
-- Integration with LMS platforms
+This project is designed for educational purposes as a capstone exercise.
 
-### Scalability Considerations
+## Support
 
-- PostgreSQL for production database
-- Redis for caching
-- Docker containerization
-- Cloud deployment (AWS/GCP)
-- CDN for static assets
+For students:
+- Check `student_guide.md` for detailed implementation instructions
+- Use the test scripts to validate your implementations
+- Ask TAs for help when stuck
 
-## 📄 License
-
-This project is a proof-of-concept for educational purposes.
-
-## 🤝 Contributing
-
-This is a POC project. For production development:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests
-5. Submit a pull request
-
-## 📞 Support
-
-For issues and questions:
-- Check the troubleshooting section
-- Review API documentation at `/docs`
-- Ensure all environment variables are configured
-- Verify API keys are valid and have proper permissions
+For TAs:
+- See `TA_guide.md` for complete solutions and troubleshooting
+- All exercises have detailed implementation guides and common issue solutions
 
 ---
 
-**Built with ❤️ for education and powered by AI**
+**Built for AI education - helping students learn by building real applications**

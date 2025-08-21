@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Explorers: Session 3 Interactive Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f3f1; /* stone-100 */
+            color: #44403c; /* stone-700 */
+        }
+        .code-block {
+            font-family: 'Source Code Pro', monospace;
+            background-color: #292524; /* stone-800 */
+            color: #e7e5e4; /* stone-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .nav-link.active {
+            background-color: #a8a29e; /* stone-400 */
+            color: #1c1917; /* stone-900 */
+            font-weight: 600;
+        }
+        .workflow-tab.active {
+            background-color: #d6d3d1; /* stone-300 */
+            border-color: #a8a29e; /* stone-400 */
+        }
+        .highlight {
+            color: #5eead4; /* A teal color for consistency with slides */
+        }
+    </style>
+</head>
+<body class="bg-stone-100">
+
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8 p-4 sm:p-6 lg:p-8">
+        
+        <aside class="lg:w-1/4 lg:sticky lg:top-8 self-start">
+            <div class="bg-white/80 backdrop-blur-md p-4 rounded-xl shadow-md">
+                <h2 class="text-lg font-bold text-stone-700 mb-4">Navigation</h2>
+                <nav class="flex flex-row lg:flex-col gap-2 flex-wrap">
+                    <a href="#introduction" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Introduction</a>
+                    <a href="#fundamentals" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Agent Fundamentals</a>
+                    <a href="#react" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">The ReAct Framework</a>
+                    <a href="#workflows" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Agentic Workflows</a>
+                    <a href="#toolkit" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">The Toolkit</a>
+                    <a href="#lab" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Hands-On Lab</a>
+                    <a href="#capstone" class="nav-link text-stone-600 hover:bg-stone-200 p-2 rounded-md transition-colors duration-200">Capstone Project</a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="w-full lg:w-3/4">
+            <header class="bg-white p-8 rounded-xl shadow-xl mb-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-stone-800">AI Explorers: Session 3</h1>
+                <p class="text-xl md:text-2xl text-stone-600 mt-2">Introduction to AI Agents</p>
+            </header>
+
+            <section id="introduction" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Introduction: The Next Step in AI</h2>
+                    <p class="text-stone-600 mb-4">In our journey so far, we've learned how to communicate with AI and give it specialized knowledge. Now, we're taking the final and most exciting step: giving AI the ability to take action.</p>
+                    <div class="grid md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-stone-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-stone-800">Prompt Engineering</h3>
+                            <p class="text-4xl my-2">🗣️</p>
+                            <p class="mt-1 text-stone-600">We learned to <strong>talk</strong> to AI.</p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-stone-800">RAG</h3>
+                            <p class="text-4xl my-2">📚</p>
+                            <p class="mt-1 text-stone-600">We gave AI <strong>knowledge</strong>.</p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-lg border-2 border-teal-300">
+                            <h3 class="text-lg font-semibold text-teal-700">AI Agents</h3>
+                            <p class="text-4xl my-2">🤖</p>
+                            <p class="mt-1 text-stone-600">Today, we give AI the power to <strong>act</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="fundamentals" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Agent Fundamentals: The Core Formula</h2>
+                    <p class="text-stone-600 mb-6">An AI Agent might seem complex, but it's built on a simple and powerful formula. Understanding this formula is the key to understanding how all agents work.</p>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 p-6 bg-stone-50 rounded-lg">
+                        <div class="text-center">
+                            <p class="text-6xl">🧠</p>
+                            <p class="mt-2 font-semibold text-lg">A Brain (LLM)</p>
+                        </div>
+                        <p class="text-5xl font-light text-stone-400">+</p>
+                        <div class="text-center">
+                            <p class="text-6xl">🧰</p>
+                            <p class="mt-2 font-semibold text-lg">A Set of Tools</p>
+                        </div>
+                        <p class="text-5xl font-light text-stone-400">=</p>
+                        <div class="text-center">
+                            <p class="text-6xl">🤖</p>
+                            <p class="mt-2 font-semibold text-lg text-teal-700">An AI Agent</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 space-y-4 text-stone-600">
+                        <p><strong>The Brain (LLM):</strong> This is the Large Language Model (like Gemini). Its job is to reason, understand language, and create plans. It's the strategist.</p>
+                        <p><strong>The Tools (Actions):</strong> These are the agent's "hands." They are functions or APIs that allow the agent to interact with the outside world, like searching the web, using a calculator, or reading a file. They are the executors.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="react" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">The ReAct Framework: How an Agent "Thinks"</h2>
+                    <p class="text-stone-600 mb-6">An agent doesn't solve a problem all at once. It uses a step-by-step reasoning process called **ReAct**, which stands for **Reason** and **Act**. This is a continuous loop that guides the agent to a solution.</p>
+                    <div class="code-block">
+                        <p><strong class="text-purple-400">Thought:</strong> The agent first reasons about the problem and its goal. It thinks, "What is the next logical step I need to take?"</p>
+                        <p class="mt-4"><strong class="text-blue-400">Action:</strong> Based on its thought, the agent decides to act by choosing one of its available tools and providing an input for it.</p>
+                        <p class="mt-4"><strong class="text-green-400">Observation:</strong> The agent receives the result from the tool. This new information is its observation.</p>
+                        <p class="mt-4">The agent then takes this observation and starts the loop again with a new **Thought**. This continues until it has enough information to give a final answer.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="workflows" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">From Agents to Workflows</h2>
+                    <p class="text-stone-600 mb-6">While a single agent is powerful, the true potential is unlocked when you combine multiple agents into a **workflow**. An agent is a single worker; a workflow is a team of specialists. Here are some common patterns.</p>
+                    
+                    <div class="flex flex-wrap gap-2 border-b-2 border-stone-200 mb-4">
+                        <button class="workflow-tab p-3 font-semibold border-b-4 border-transparent active" data-target="tab-chaining">Chaining</button>
+                        <button class="workflow-tab p-3 font-semibold border-b-4 border-transparent" data-target="tab-routing">Routing</button>
+                        <button class="workflow-tab p-3 font-semibold border-b-4 border-transparent" data-target="tab-parallel">Parallelization</button>
+                        <button class="workflow-tab p-3 font-semibold border-b-4 border-transparent" data-target="tab-evaluator">Evaluator</button>
+                    </div>
+
+                    <div id="tab-content" class="mt-6">
+                        <div id="tab-chaining" class="workflow-content">
+                            <h3 class="text-xl font-semibold mb-2">Prompt Chaining (Assembly Line)</h3>
+                            <p class="text-stone-600">The output of one agent becomes the input for the next. This is for tasks that must be done in a specific sequence.</p>
+                        </div>
+                        <div id="tab-routing" class="workflow-content hidden">
+                            <h3 class="text-xl font-semibold mb-2">Routing (Post Office)</h3>
+                            <p class="text-stone-600">A "dispatcher" agent analyzes a task and sends it to the most appropriate specialized agent (e.g., a Math Agent or a History Agent).</p>
+                        </div>
+                        <div id="tab-parallel" class="workflow-content hidden">
+                            <h3 class="text-xl font-semibold mb-2">Parallelization (Kitchen Crew)</h3>
+                            <p class="text-stone-600">A main task is split into sub-tasks that multiple agents can work on at the same time. Their results are combined at the end.</p>
+                        </div>
+                        <div id="tab-evaluator" class="workflow-content hidden">
+                            <h3 class="text-xl font-semibold mb-2">Evaluator-Optimizer (Writer & Editor)</h3>
+                            <p class="text-stone-600">One agent creates a draft, and another agent critiques it, providing feedback. This creates a loop of continuous improvement. **This is the pattern for your capstone project.**</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="toolkit" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">The Toolkit for Our Lab</h2>
+                    <p class="text-stone-600">For our hands-on lab, we will give our agent one powerful tool: the ability to search the web. We will use the **DuckDuckGo Search** tool because it's effective and doesn't require a separate API key, making it perfect for getting started quickly.</p>
+                </div>
+            </section>
+
+            <section id="lab" class="scroll-mt-24 mb-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Hands-On Lab: Build a Research Agent</h2>
+                    <p class="text-stone-600">In the lab, you will apply these concepts to build a real agent in Google Colab. You will:</p>
+                    <ul class="list-disc list-inside text-stone-600 space-y-2 mt-4">
+                        <li>Initialize the Gemini 2.5 Flash model as the "Brain."</li>
+                        <li>Define the DuckDuckGo Search tool as the "Tool."</li>
+                        <li>Combine them using LangChain to create an agent.</li>
+                        <li>Run the agent and watch its ReAct thought process live as it answers a question.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="capstone" class="scroll-mt-24">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h2 class="text-3xl font-bold text-stone-700 mb-4">Looking Ahead: Your Capstone Project</h2>
+                    <p class="text-stone-600">The final capstone project will be your opportunity to build a complete, multi-agent **workflow**. You will use the **Evaluator-Optimizer** pattern to create a "Writer" agent that drafts a blog post and an "Editor" agent that provides feedback, creating a system that can improve its own work.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            const workflowTabs = document.querySelectorAll('.workflow-tab');
+            const workflowContents = document.querySelectorAll('.workflow-content');
+
+            const onScroll = () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (window.pageYOffset >= sectionTop - 120) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', onScroll);
+            onScroll();
+
+            workflowTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetId = tab.dataset.target;
+
+                    workflowTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    workflowContents.forEach(content => {
+                        if (content.id === targetId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

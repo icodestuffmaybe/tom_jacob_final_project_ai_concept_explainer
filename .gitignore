@@ -5,6 +5,9 @@
 .env.test.local
 .env.production.local
 
+# TA guide
+TA_guide.md
+
 # Python
 __pycache__/
 *.py[cod]

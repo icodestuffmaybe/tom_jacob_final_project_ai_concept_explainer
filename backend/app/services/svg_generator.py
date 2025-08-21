@@ -10,51 +10,66 @@ class SVGGenerator:
             self.model = None
         
     async def generate_svg_flashcard(self, topic: str, explanation: str) -> str:
+        # TODO: EXERCISE 1C - Implement SVG Flashcard Generation (Prompt Engineering Session)
+        # INSTRUCTION: Create an AI prompt that generates educational SVG flashcards
+        # 
+        # STEPS TO IMPLEMENT:
+        # 1. Handle the case when self.model is None (return fallback SVG)
+        # 2. Extract core essence from the explanation using extract_core_essence()
+        # 3. Create a comprehensive prompt for SVG generation using Session 1 techniques:
+        #    - Persona prompting (assign AI role as designer)
+        #    - Detailed format specification (SVG structure)
+        #    - Clear visual design requirements
+        #    - Specific output format (pure SVG code)
+        # 4. Generate content and clean the response
+        # 5. Return valid SVG content
+        # 
+        # PROMPT ENGINEERING TECHNIQUES (Session 1):
+        # - Persona: "You are a minimalist designer..."
+        # - Clear format specification: SVG dimensions, structure
+        # - Detailed requirements: colors, layout, typography
+        # - Output format: "Generate ONLY valid SVG code"
+        # 
+        # SVG REQUIREMENTS:
+        # - Size: 800x600 pixels
+        # - Dark theme: background #1a1a1a, text #f0f0f0
+        # - Structure: Title, core content, visual element
+        # - Educational and visually appealing
+        # 
+        # DESIGN PRINCIPLES:
+        # - Minimalist and zen-inspired
+        # - Clear typography (14px+ body, 24px+ title)
+        # - Balanced layout with negative space
+        # - Simple but meaningful visual elements
+        
+        # TODO: Remove this assertion once you implement the function
+        assert False, "❌ EXERCISE 1C NOT IMPLEMENTED: Please implement generate_svg_flashcard() function in svg_generator.py"
+        
+        # TODO: Implement your solution here
+        
         if not self.model:
             return self.get_fallback_svg(topic)
             
+        # TODO: Extract core essence from explanation
         core_essence = await self.extract_core_essence(topic, explanation)
         
+        # TODO: Create your SVG generation prompt using Session 1 techniques
         prompt = f"""
-        Create a Minimalist Educational SVG Flashcard
-        You are a minimalist designer who specializes in explaining complex concepts simply using the Feynman technique. 
-        Create an SVG flashcard (800x600 pixels) that teaches the following concept:
-
-        TOPIC: {topic}
-
-        CORE EXPLANATION: {core_essence}
-
-        Content Structure:
-        - Concept Title - Center at the top
-        - Core Essence - A brief, deep analysis of what the concept really means
-        - Simple Explanation - Break it down like you're explaining to a beginner, using everyday language
-        - Real-World Example - A concrete, relatable analogy or example
-        - Visual Element - A simple, zen-inspired graphic that represents the concept
-
-        Design Style:
-        - Aesthetic: Futuristic matrix style combined with zen minimalism
-        - Color Scheme: Dark background (#1a1a1a) with chalk white text (#f0f0f0) for contrast
-        - Layout: Clean grid-based design using golden ratio proportions
-        - Typography: Minimum 14px font size for body text, 24px for title
-        - Spacing: Generous use of negative space for "breathability"
-        - Visual Inspiration: Song dynasty painting mood - simple, elegant, meaningful
-
-        Layout Requirements:
-        - Canvas: 800x600 pixels with 20px margins
-        - Title centered at top (y=50)
-        - Core essence in upper section (y=120-180)
-        - Central zen graphic (y=200-400) - simple, symbolic illustration
-        - Simple explanation at bottom (y=420-520)
-        - Balance all elements harmoniously
-
-        IMPORTANT: Generate ONLY valid SVG code starting with <svg> and ending with </svg>.
-        No markdown, no explanations, just the SVG code.
+        # Your SVG generation prompt goes here
+        # Remember to:
+        # - Use persona prompting (designer role)
+        # - Specify exact SVG format and dimensions
+        # - Include design requirements (colors, layout)
+        # - Request only SVG code as output
+        # - Include the topic: {topic}
+        # - Include the core_essence: {core_essence}
         """
         
         try:
-            response = self.model.generate_content(prompt)
-            svg_content = self.clean_svg_response(response.text)
-            return svg_content
+            # TODO: Generate content using self.model.generate_content(prompt)
+            # TODO: Clean the response using self.clean_svg_response()
+            # TODO: Return the SVG content
+            pass
         except Exception as e:
             print(f"Error generating SVG: {e}")
             return self.get_fallback_svg(topic)
