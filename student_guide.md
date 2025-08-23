@@ -61,7 +61,6 @@ ai-concept-explainer/
 │   └── requirements.txt
 ├── test_exercise_*.py          # YOUR TEST SCRIPTS
 ├── student_guide.md            # THIS FILE
-└── TA_guide.md                 # TA SOLUTIONS & HELP
 ```
 
 ### 3. Run Your First Test
