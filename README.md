@@ -149,7 +149,6 @@ backend/app/
 2. **Look for TODO comments** in the code files - they contain step-by-step instructions
 3. **Remove the assertion** when you start implementing each function
 4. **Test frequently** using the provided test scripts
-5. **Ask for help** from TAs when needed (see `TA_guide.md`)
 
 ### Success Criteria
 
@@ -190,7 +189,6 @@ ai-concept-explainer-exercise/
 │   └── requirements.txt
 ├── test_exercise_*.py     # Test scripts for each exercise
 ├── student_guide.md       # Detailed implementation guide
-├── TA_guide.md           # Solutions and help for TAs
 ├── session*_course_notes.html  # Course reference materials
 └── README.md             # This file
 ```
@@ -218,8 +216,7 @@ ai-concept-explainer-exercise/
 
 1. **Read the TODO comments** in the code files
 2. **Check `student_guide.md`** for detailed instructions
-3. **Ask TAs for help** - they have complete solutions in `TA_guide.md`
-4. **Run test scripts** to see specific error messages
+3. **Run test scripts** to see specific error messages
 
 ## Educational Goals
 
@@ -262,10 +259,6 @@ For students:
 - Check `student_guide.md` for detailed implementation instructions
 - Use the test scripts to validate your implementations
 - Ask TAs for help when stuck
-
-For TAs:
-- See `TA_guide.md` for complete solutions and troubleshooting
-- All exercises have detailed implementation guides and common issue solutions
 
 ---
 
