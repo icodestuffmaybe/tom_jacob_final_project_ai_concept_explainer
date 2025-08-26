@@ -47,37 +47,38 @@ class QuizService:
         # - easy: Basic recall and recognition
         # - medium: Understanding and application  
         # - hard: Analysis and synthesis
-        
-        # TODO: Remove this assertion once you implement the function
-        assert False, "❌ EXERCISE 1B NOT IMPLEMENTED: Please implement generate_quiz() function in quiz_service.py"
-        
-        # TODO: Implement your solution here
-        
+
         if not self.model:
+            print("❌ No model available - API key not configured")
             return self.get_fallback_quiz()
             
-        # TODO: Truncate explanation to prevent token limits
         explanation_summary = explanation[:1000] if len(explanation) > 1000 else explanation
-            
-        # TODO: Create your prompt here using Session 1 techniques
-        prompt = f"""
-        # Your quiz generation prompt goes here
-        # Remember to:
-        # - Specify exact JSON format
-        # - Require 5 questions with 4 options each
-        # - Base questions on the explanation content
-        # - Adapt difficulty level: {difficulty}
-        # - Include clear instructions
-        """
+        prompt = f"""Create 5 multiple choice questions from: {explanation_summary}
+                 return as a JSON object.
+                 Format: {{"questions": [{{"id": "q1", "question": "text?", "type": "multiple_choice", "options": {{"A": "answer A", "B": "answer B", "C": "answer C", "D": "answer D"}}, "correct_answer": "B", "explanation": "why"}}]}}
+                 Difficulty: {difficulty}"""
         
         try:
-            # TODO: Generate content using self.model.generate_content(prompt)
-            # TODO: Clean the response (remove markdown formatting)
-            # TODO: Parse JSON response
-            # TODO: Validate the structure (5 questions, required fields)
-            # TODO: Return quiz_data
-            pass
+            quiz_data = self.model.generate_content(prompt)
+            if quiz_data.parts and len(quiz_data.parts) > 0:
+                quiz_data = quiz_data.parts[0].text
+            else:
+                print(f"❌ No text content found in response: {quiz_data}")
+            print(quiz_data)
+            quiz_data = quiz_data.replace("```json", "").replace("```", "")
+
+            quiz_data = json.loads(quiz_data)
             
+            if len(quiz_data["questions"]) != 5:
+                raise ValueError("Expected 5 questions")
+            for question in quiz_data["questions"]:
+                if question["type"] != "multiple_choice":
+                    raise ValueError("Expected multiple_choice questions")
+                elif len(question["options"].keys()) != 4:
+                    raise ValueError("Expected 4 options")
+                elif not question["correct_answer"] in question["options"].keys():
+                    raise ValueError("Correct answer is not in options")
+            return quiz_data
         except json.JSONDecodeError as e:
             print(f"❌ JSON parsing error: {e}")
             return self.get_fallback_quiz()

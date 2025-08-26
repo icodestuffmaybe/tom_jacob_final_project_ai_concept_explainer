@@ -355,6 +355,21 @@ class ExplanationService:
         # - Include citations [1], [2] when using source facts
         # - Keep explanation clear and engaging
         # """
+        if not self.model:
+            return "Gemini API not configured"
+        prompt = f"""
+        You are an expert professor who has been teaching for 100 years. You can explain complex concepts 
+        simply using the Feynman Technique.
+        
+        In a well structured paragraph simply define "{query}" and explain how it works. 
+        Make sure to use this verified information: {source_summary} and 
+        to include citations [1],[2], when using source facts.
+        At the end of the explanation, make sure to include a real-world example or 
+        analogy or explain the significance of the concept.
+
+        """
+        
+        return self.model.generate_content(prompt).text
         
         # TODO: Remove this assertion once you implement the function
         assert False, "❌ EXERCISE 1A NOT IMPLEMENTED: Please implement generate_explanation_with_sources() function in explanation_service.py"
